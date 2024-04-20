@@ -15,7 +15,7 @@ public class BookService implements BookManager{
     @Autowired
     private BookRepository bookRepository;
 
-
+//we can use public void addbook and dont return nothing just b.save
     @Override
     public Book AddBook(Book book) {
         return bookRepository.save(book);
@@ -25,5 +25,10 @@ public class BookService implements BookManager{
     public List<Book> gettAllBooks() {
 
         return bookRepository.findAll();
+    }
+
+    public Book getBookById(int id)
+    {
+        return bookRepository.findById(id).get();
     }
 }

@@ -1,13 +1,13 @@
 package com.example.bookstorespringboot.web;
 
 import com.example.bookstorespringboot.dao.entities.Book;
+import com.example.bookstorespringboot.dao.entities.MyBookList;
 import com.example.bookstorespringboot.service.BookManager;
+import com.example.bookstorespringboot.service.MyBookListManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +16,9 @@ public class BookController {
 
     @Autowired
     private BookManager bookManager;
+
+    @Autowired
+    private MyBookListManager myBookListManager;
     //Redirect to home page Basic Controller
     @GetMapping("/")
     public String home(){
@@ -50,6 +53,26 @@ public class BookController {
         bookManager.AddBook(b);
         return "redirect:/available_books";
     }
+
+    @GetMapping("/my_books")
+    public String getMyBooks(Model model){
+        List<MyBookList> listofmybooks = myBookListManager.getAllMyBooks();
+        model.addAttribute("books",listofmybooks);
+        return "myBooks";
+    }
+
+    @RequestMapping("/mylist/{id}")
+    // what is this RequestMapping ??
+    //link are sensible to case?
+    public String getMyList(@PathVariable("id") int id){
+        Book b = bookManager.getBookById(id);
+        MyBookList mb = new MyBookList(b.getId(),b.getName(),b.getAuthor(),b.getPrice());
+        myBookListManager.SaveMyBooks(mb);
+        return "redirect:/my_books";
+
+    }
+
+
 
 
 
