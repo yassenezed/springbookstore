@@ -16,6 +16,8 @@ public class MyBookList {
 
 
     @Id
+
+    //should i generate id or let it in the getter .get(id) ?
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;

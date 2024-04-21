@@ -31,4 +31,11 @@ public class BookService implements BookManager{
     {
         return bookRepository.findById(id).get();
     }
+
+    @Override
+    public void deleteById(int id) {
+
+        bookRepository.deleteById(id);
+
+    }
 }

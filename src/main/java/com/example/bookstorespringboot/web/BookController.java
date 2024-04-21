@@ -73,7 +73,24 @@ public class BookController {
     }
 
 
+    @RequestMapping("/editBook/{id}")
+    public String editBook(@PathVariable("id") int id, Model model){
+        Book myBook = bookManager.getBookById(id);
+        model.addAttribute("book",myBook);
+        return "bookEdit";
+    }
 
+
+
+    @RequestMapping("/deleteBook/{id}")
+    public String deleteById(@PathVariable("id") int id)
+    {
+        bookManager.deleteById(id);
+        return "redirect:/available_books";
+    }
+
+
+    //when editing a book i got problem in the book list not updating
 
 
 }

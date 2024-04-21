@@ -10,5 +10,7 @@ public interface BookManager {
     public List<Book> gettAllBooks();
     public Book getBookById(int id);
 
+    public void deleteById(int id);
+
 
 }
