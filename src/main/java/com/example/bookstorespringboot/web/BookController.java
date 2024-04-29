@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -44,13 +45,25 @@ public class BookController {
         return "bookList";
     }
 
-    @PostMapping("save")
+    @PostMapping("saveBackup")
     public String addBook(@ModelAttribute Book b)
     {
         //We'ill try @Valid After and see the difference and also whats
         //the difference between RequestParam all of this works with name=
         //in form
         bookManager.AddBook(b);
+        return "redirect:/available_books";
+    }
+
+    @PostMapping("save")
+    public String saveProduct(@RequestParam("image") MultipartFile file,
+                              @RequestParam("name") String name,
+                              @RequestParam("price") String price,
+                              @RequestParam("description") String description,
+                              @RequestParam("author") String author,
+                              @RequestParam("genre") String genre)
+    {
+        bookManager.saveProductToDB(file, name, genre, description,price,author);
         return "redirect:/available_books";
     }
 
