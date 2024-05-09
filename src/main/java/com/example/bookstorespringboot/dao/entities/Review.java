@@ -1,14 +1,30 @@
 package com.example.bookstorespringboot.dao.entities;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Review {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    /*
+    private int rating;
 
-        id: Unique identifier for the review.
-        book: The book being reviewed.
-        user: The user who wrote the review.
-        rating: The rating given by the user (e.g., on a scale of 1 to 5 stars).
-        comment: The written review/comment by the user.
-        timestamp: The timestamp indicating when the review was submitted.
-     */
+    private String comment;
+
+    private Date timestamp;
+
+    @ManyToOne
+    private User userReview;
+
+    @ManyToOne
+    private Book bookReview;
 }

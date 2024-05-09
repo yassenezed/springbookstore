@@ -1,15 +1,30 @@
 package com.example.bookstorespringboot.dao.entities;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Author {
-
-    /*
-     Author:
-
-id: Unique identifier for the author.
-name: The name of the author.
-biography: A brief biography or information about the author.
-birth_date: The date of birth of the author.
-nationality: The nationality or country of origin of the author.
-books: The books written by the author (if you're implementing a one-to-many relationship).
-     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @NotEmpty
+    private String name;
+    private String biography;
+    private Date birthDate;
+    private String nationality;
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private Collection<Book> books;
+    @ManyToOne
+    private User userAuthor;
 }

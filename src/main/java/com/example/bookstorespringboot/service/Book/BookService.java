@@ -1,6 +1,7 @@
-package com.example.bookstorespringboot.service;
+package com.example.bookstorespringboot.service.Book;
 
 
+import com.example.bookstorespringboot.dao.entities.Author;
 import com.example.bookstorespringboot.dao.entities.Book;
 import com.example.bookstorespringboot.dao.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,11 @@ public class BookService implements BookManager{
     //we can use public void addbook and dont return nothing just b.save
     @Override
     public Book AddBook(Book book) {
-
-
         return bookRepository.save(book);
     }
 
     public void  saveProductToDB(MultipartFile file, String name, String genre, String description
-            , String price, String Author)
+            , String price, Author author)
     {
         Book B = new Book();
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -41,16 +40,20 @@ public class BookService implements BookManager{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+
+
         B.setName(name);
-        B.setGenre(genre);
-        B.setAuthor(Author);
+       // B.setGenre(genre);
+        B.setAuthor(author);
         B.setDescription(description);
         B.setPrice(price);
         bookRepository.save(B);
     }
 
     @Override
-    public List<Book> gettAllBooks() {
+    public List<Book> getAllBooks() {
 
         return bookRepository.findAll();
     }
@@ -66,4 +69,6 @@ public class BookService implements BookManager{
         bookRepository.deleteById(id);
 
     }
+
+
 }

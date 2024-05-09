@@ -21,7 +21,6 @@
                 <th scope="col">Genre</th>
                 <th scope="col">Description</th>
                 <th scope="col">Image</th>
-
                 <th scope="col">Action</th>
 
             </tr>
@@ -34,7 +33,9 @@
                 <td th:text="${b.price}"></td>
                 <td th:text="${b.genre}"></td>
                 <td th:text="${b.description}"></td>
-                <td scope="row"><img alt="" th:src="*{'data:image/jpeg;base64,'+{b.image}}" style="width: 100px;height: 100px;"></td>
+                <td scope="row">
+                    <img alt="" th:src="'data:image/jpeg;base64,' + ${b.image}" style="width: 100px; height: 100px;">
+                </td>
                 <td>
                     <a class="btn btn-secondary btn-sm" th:href="@{/mylist/{id}(id=${b.id})}">Add To Mybook</a>
                     <a style="color:blue" th:href="@{/editBook/{id}(id=${b.id})}"><i

@@ -2,9 +2,13 @@ package com.example.bookstorespringboot.dao.entities;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -14,12 +18,18 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotEmpty
     private String name;
-    private String genre;
-    private String author;
-    @Lob
-    @Column(columnDefinition = "MEDIUMBLOB")
+    //so I should add a category to a book and that's it  Response ="yes"?
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Category> categories = new ArrayList<>();
     private String image;
     private String description;
     private String price;
+    @ManyToOne
+    private Author author;
+    @ManyToOne
+    private User userBook;
+    @OneToMany(mappedBy = "bookReview")
+    private Collection<Review> reviews;
 }

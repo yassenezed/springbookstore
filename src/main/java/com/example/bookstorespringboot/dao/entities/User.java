@@ -1,21 +1,56 @@
 package com.example.bookstorespringboot.dao.entities;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Collection;
+import java.util.Date;
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    /*
-    User:
+    private String username;
 
-id: Unique identifier for the user.
-username: The username used for authentication.
-password: The password (hashed) used for authentication.
-email: The email address of the user.
-first_name: The first name of the user.
-last_name: The last name of the user.
-birthdate: The date of birth of the user.
-gender: The gender of the user.
-address: The address of the user (street, city, state, zip code, country).
-phone_number: The phone number of the user.
-registration_date: The date when the user registered.
-role: The role of the user (e.g., admin, regular user).
-    */
+    private String password;
+
+    @Email
+
+    private String email;
+
+    private String firstName;
+
+    private String lastName;
+
+    @NotNull
+    @Past
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private Date birthDate;
+
+    private String gender;
+
+    private String address;
+
+    private String phoneNumber;
+
+    private Date registrationDate;
+
+    private String role;
+
+    @OneToMany(mappedBy = "userBook", fetch = FetchType.LAZY)
+    private Collection<Book> books;
+
+    @OneToMany(mappedBy = "userAuthor", fetch = FetchType.LAZY)
+    private Collection<Author> authors;
+
+    @OneToMany(mappedBy = "userReview", fetch = FetchType.LAZY)
+    private Collection<Review> reviews;
 }

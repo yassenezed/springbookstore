@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.com"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="template" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book Store</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <form class="col-md-4 offset-md-4" th:action="login" method="post" th:object="${user}">
+        <div class="mb-3">
+            <label class="form-label text-center">Enter the username:
+            </label><input type="text" name="username" th:field="*{username}">
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+        </div>
+
+        <div>
+            <label class="form-label text-center">   Enter password: </label>
+            <input type="password" name="password" />
+        </div>
+
+        <center><button type="submit" class="btn btn-primary">Submit</button></center>
+    </form>
+</div>
+
+</body>
+</html>
