@@ -14,15 +14,13 @@
         <div class="mb-3">
             <label class="form-label text-center">Enter the username:
             </label><input type="text" name="username" th:field="*{username}">
-            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
         </div>
-
         <div>
-            <label class="form-label text-center">   Enter password: </label>
-            <input type="password" name="password" />
+            <label class="form-label text-center">Enter password: </label>
+            </label><input type="text" name="password" th:field="*{password}">
         </div>
-
-        <center><button type="submit" class="btn btn-primary">Submit</button></center>
+        <center><button type="submit" class="btn btn-primary">Login</button></center>
+        <p th:if="${param.error}" style="color: red;">Invalid username or password</p>
     </form>
 </div>
 

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 import java.util.Collection;
 import java.util.Date;
 @Entity
@@ -30,9 +31,9 @@ public class User {
 
     private String lastName;
 
-    @NotNull
-    @Past
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+   // @NotNull
+   // @Past
+   // @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date birthDate;
 
     private String gender;
@@ -53,4 +54,6 @@ public class User {
 
     @OneToMany(mappedBy = "userReview", fetch = FetchType.LAZY)
     private Collection<Review> reviews;
+
+
 }

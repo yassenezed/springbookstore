@@ -44,13 +44,30 @@ public class UserController {
     //Handler for Login Prl
     @PostMapping("/login")
     public String loginProcess (@RequestParam("username") String username,
-                                @RequestParam("password") String password ) {
+                                @RequestParam("password") String password) {
         User dbUser = userManager.findUserByUsername(username);
         Boolean isPasswordMatch=BCrypt.checkpw(password, dbUser.getPassword());
         if (isPasswordMatch)
             return "bookTemplate/home";
         else
             return "redirect:login"; // Redirect to login page after unsuccessful login
+    }
+
+    @GetMapping("/login2")
+    public String getLoginPage() {
+        return "userTemplate/userLogin2";
+    }
+
+    @GetMapping("/registration2")
+    public String getRegistrationPage(Model model) {
+        model.addAttribute("user", new User());
+        return "userTemplate/userRegister2";
+    }
+
+    @PostMapping("/registration2")
+    public String registerUser(@ModelAttribute User user) {
+        userManager.addUser(user);
+        return "redirect:/login2?success";
     }
 }
 

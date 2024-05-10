@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.com"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="template" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book Store</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <form th:action="@{/registration2}" method="post" th:object="${user}">
+        <input name="username" type="text" placeholder="Username">
+        <input name="password" type="password" placeholder="Password">
+        <input type="submit" value="Register">
+    </form>
+</div>
+
+</body>
+</html>
