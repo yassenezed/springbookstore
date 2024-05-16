@@ -24,34 +24,6 @@ public class UserController {
         return "userTemplate/userRegister";
     }
 
-    @GetMapping("/login")
-    public String showLoginForm(User user) {
-        return "userTemplate/userLogin";
-    }
-
-    @PostMapping("/register")
-    public String processRegistration(@ModelAttribute("user") @Valid User user, BindingResult result) {
-        if (result.hasErrors()) {
-            return "userTemplate/userRegister"; // Return the registration form if there are validation errors
-        }
-        String EncodedPassword = BCrypt.hashpw(user.getPassword(),BCrypt.gensalt(12));
-        user.setPassword(EncodedPassword);
-        userManager.addUser(user);
-        return "redirect:login"; // Redirect to login page after successful registration
-    }
-
-
-    //Handler for Login Prl
-    @PostMapping("/login")
-    public String loginProcess (@RequestParam("username") String username,
-                                @RequestParam("password") String password) {
-        User dbUser = userManager.findUserByUsername(username);
-        Boolean isPasswordMatch=BCrypt.checkpw(password, dbUser.getPassword());
-        if (isPasswordMatch)
-            return "bookTemplate/home";
-        else
-            return "redirect:login"; // Redirect to login page after unsuccessful login
-    }
 
     @GetMapping("/login2")
     public String getLoginPage() {

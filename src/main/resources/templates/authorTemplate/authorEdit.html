@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.com"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="template" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book Store</title>
+</head>
+<body>
+<div layout:fragment="content">
+<div class="container my-5 p-5" style="border:1px solid black;">
+    <h4 class="text-center">Edit Book Here</h4>
+    <form class="col-md-4 offset-md-4" th:action="@{/author_register}" method="post" th:object="${author}">
+        <input type="hidden" th:value="${author.id}">
+        <div class="mb-3">
+            <label for="name" class="form-label text-center">Full Name:
+            </label> <input type="text" id="name" class="form-control" name="name" th:value="${author.name}">
+        </div>
+        <div class="mb-3">
+            <label for="biography" class="form-label">Biography:
+            </label> <input type="text" id="biography" class="form-control" name="biography" th:value="${author.biography}">
+        </div>
+        <div class="mb-3">
+            <label for="nationality" class="form-label">Nationality:
+            </label> <input type="text" id="nationality" class="form-control" name="nationality" th:value="${author.nationality}">
+        </div>
+
+        <div class="mb-3">
+            <label for="birthDate" class="form-label">Birth Date:
+            </label> <input type="text" id="birthDate" class="form-control" name="birthDate" th:value="${author.birthDate}">
+        </div>
+        <center><button type="submit" class="btn btn-primary">Submit</button></center>
+    </form>
+</div>
+</div>
+</body>
+</html>

@@ -19,7 +19,7 @@ public class BookController {
     //Redirect to home page Basic Controller
     @GetMapping("/")
     public String home(){
-        return "bookTemplate/home";
+        return "home";
     }
     @GetMapping("/book_register")
     public String homeRegister()

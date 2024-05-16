@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Collection;
 import java.util.Date;
@@ -18,10 +19,10 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotEmpty
     private String name;
     private String biography;
-    private Date birthDate;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private String birthDate;
     private String nationality;
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private Collection<Book> books;

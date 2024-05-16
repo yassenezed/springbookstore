@@ -13,7 +13,6 @@
 <div class="container my-5 p-5" style="border:1px solid black;">
     <h4 class="text-center">Edit Book Here</h4>
     <form class="col-md-4 offset-md-4" th:action="@{/save}" method="post" th:object="${book}">
-        <!-- th:action="@{/save}" working but th:action="save" not working here in edit in but in book register working  -->
         <input type="hidden" name="id" th:value="${book.id}"/>
         <div class="mb-3">
             <label for="name" class="form-label text-center">Name:

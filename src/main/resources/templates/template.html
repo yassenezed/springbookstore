@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/0faddc1af8.js" crossorigin="anonymous"></script>
+
     <title>Book Store</title>
 </head>
 <body>
@@ -29,18 +30,34 @@
                     <a class="nav-link text-white" href="available_books">Available Books</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="my_books">My Books</a>
+                    <a class="nav-link text-white" href="author_register">Add An Author</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="available_authors">Available Authors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="category_register">Add A Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="available_categories">Available Authors</a>
                 </li>
 
-                <li sec:authorize="isAuthenticated()">
-                    | <a class="btn-dark" th:href="@{/logout}">Logout</a></li>
-
-
-                <li sec:authorize="!isAuthenticated()">
-                    | <a class="btn-dark" th:href="@{/login}">Log In</a></li>
             </ul>
             <div>
-                <a class="nav-link text-white" href="book_register">New Book Register</a>
+                <a class="nav-link text-white" sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" value="Logout |">
+                    </form>
+                </a>
+            </div>
+            <div>
+                <a class="nav-link text-white" sec:authorize="!isAuthenticated()" href="/login2">Login | </a>
+            </div>
+            <div>
+                <a class="nav-link text-white" sec:authorize="!isAuthenticated()" href="/registration2"> Registration | </a>
+            </div>
+            <div>
+                <a class="nav-link text-white" href="book_register" sec:authorize="isAuthenticated()"> New Book Register</a>
             </div>
         </div>
     </div>

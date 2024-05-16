@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.com"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="template" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book Store</title>
+</head>
+<body>
+<div layout:fragment="content">
+<div class="p-5" style="border:1px solid black;">
+    <h4 class="text-center">New Book Register</h4>
+    <form class="col-md-4 offset-md-4" th:action="@{/author_register}" method="post" th:object="${author}" enctype="multipart/form-data">
+
+        <div class="mb-3">
+            <label for="name" class="form-label text-center">Full Name:
+            </label> <input type="text" id="name" class="form-control" name="name">
+        </div>
+        <div class="mb-3">
+            <label for="biography" class="form-label">Biography:
+            </label> <input type="text" id="biography" class="form-control" name="biography">
+        </div>
+        <div class="mb-3">
+            <label for="nationality" class="form-label">Nationality:
+            </label> <input type="text" id="nationality" class="form-control" name="nationality">
+        </div>
+        <div class="mb-3">
+            <label for="birthDate" class="form-label">Nationality:
+            </label><input id="birthDate" class="form-control" name="birthDate" type="date">
+        </div>
+
+        <center><button type="submit" class="btn btn-primary">Submit</button></center>
+    </form>
+</div>
+</div>
+</body>
+</html>

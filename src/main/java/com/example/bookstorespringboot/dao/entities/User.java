@@ -31,10 +31,8 @@ public class User {
 
     private String lastName;
 
-   // @NotNull
-   // @Past
-   // @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date birthDate;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private String birthDate;
 
     private String gender;
 
@@ -54,6 +52,9 @@ public class User {
 
     @OneToMany(mappedBy = "userReview", fetch = FetchType.LAZY)
     private Collection<Review> reviews;
+
+    @OneToMany(mappedBy = "userCategory", fetch = FetchType.LAZY)
+    private Collection<Category> categories;
 
 
 }

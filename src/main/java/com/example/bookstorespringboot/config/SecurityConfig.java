@@ -35,15 +35,17 @@ public class SecurityConfig {
             return new BCryptPasswordEncoder();
         }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new CustomUserDetailsService();
-    }
+        @Bean
+        public UserDetailsService userDetailsService() {
+            return new CustomUserDetailsService();
+        }
 
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
-        return authenticationManagerBuilder.build();
-    }
+        @Bean
+        public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+            AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+            authenticationManagerBuilder.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+            return authenticationManagerBuilder.build();
+        }
 }
+
+

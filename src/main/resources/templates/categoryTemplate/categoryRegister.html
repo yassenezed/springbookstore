@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.com"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="template" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book Store</title>
+</head>
+<body>
+<div layout:fragment="content">
+<div class="p-5" style="border:1px solid black;">
+    <h4 class="text-center">New Book Register</h4>
+    <form class="col-md-4 offset-md-4" th:action="@{/category_register}" method="post" th:object="${category}" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="categoryName" class="form-label text-center">Full Name:
+            </label> <input type="text" id="categoryName" class="form-control" name="categoryName">
+        </div>
+        <center><button type="submit" class="btn btn-primary">Submit</button></center>
+    </form>
+</div>
+</div>
+</body>
+</html>

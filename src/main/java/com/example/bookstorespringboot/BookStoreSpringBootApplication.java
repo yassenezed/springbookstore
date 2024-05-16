@@ -27,11 +27,9 @@ public class BookStoreSpringBootApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-
-        User user = new User(1,"","","","","",new Date(),"","","",new Date(),"",null,null,null);
+        User user = new User(1,"","","","","","","","","",new Date(),"",null,null,null,null);
         userRepository.save(user);
-        Author author12 = new Author(1, "Alex", "Born In Canada", new Date(), "Canadian", null,user);
+        Author author12 = new Author(1, "Alex", "Born In Canada", "", "Canadian", null,user);
         authorRepository.save(author12);
         Category category = new Category();
         category.setCategoryName("Drama");
@@ -40,7 +38,5 @@ public class BookStoreSpringBootApplication implements CommandLineRunner {
         bookRepository.save(book);
         Review review = new Review(1,5,"cc",new Date(),user,book);
         reviewRepository.save(review);
-
-
     }
 }

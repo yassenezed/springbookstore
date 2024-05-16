@@ -19,5 +19,7 @@ public class Category {
     private String categoryName;
     @ManyToMany(mappedBy = "categories",fetch = FetchType.EAGER)
     private Collection<Book> books = new ArrayList<>();
+    @ManyToOne
+    private User userCategory;
 
 }
