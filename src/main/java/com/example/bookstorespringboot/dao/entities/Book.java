@@ -18,14 +18,16 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotEmpty
     private String name;
     //so I should add a category to a book and that's it  Response ="yes"?
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Category> categories = new ArrayList<>();
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
     private String description;
-    private String price;
+    private float price;
+    private String amazonLink;
     @ManyToOne
     private Author author;
     @ManyToOne

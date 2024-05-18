@@ -1,30 +1,30 @@
-package com.example.bookstorespringboot.dao.entities;
+    package com.example.bookstorespringboot.dao.entities;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+    import jakarta.persistence.*;
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
 
-import java.util.Date;
+    import java.util.Date;
 
-@Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Review {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Entity
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public class Review {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private int id;
 
-    private int rating;
+        private int rating;
 
-    private String comment;
+        private String comment;
 
-    private Date timestamp;
+        private Date timestamp;
 
-    @ManyToOne
-    private User userReview;
+        @ManyToOne
+        private User userReview;
 
-    @ManyToOne
-    private Book bookReview;
-}
+        @ManyToOne
+        private Book bookReview;
+    }

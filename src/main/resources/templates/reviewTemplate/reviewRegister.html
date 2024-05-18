@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.com"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="template" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book Store</title>
+</head>
+<body>
+<div layout:fragment="content">
+<div class="p-5" style="border:1px solid black;">
+    <h4 class="text-center">New Book Register</h4>
+    <form class="col-md-4 offset-md-4" th:action="@{/review_register}" method="post" th:object="${review}" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="rating" class="form-label text-center">Rating:</label>
+            <select id="rating" class="form-control" name="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="comment" class="form-label text-center">Comment:</label>
+            <textarea id="comment" class="form-control" name="comment" rows="4" placeholder="Write your review here"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="book" class="form-label">Book:</label>
+            <select class="form-select" id="book" name="book">
+                <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.name}"></option>
+            </select>
+        </div>
+        <center>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </center>
+    </form>
+
+</div>
+</div>
+</body>
+</html>

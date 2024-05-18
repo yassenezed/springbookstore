@@ -20,37 +20,21 @@ public class BookService implements BookManager{
     @Autowired
     private BookRepository bookRepository;
 
-    //we can use public void addbook and dont return nothing just b.save
     @Override
-    public Book AddBook(Book book) {
-        return bookRepository.save(book);
-    }
-
-    public void  saveProductToDB(MultipartFile file, String name, String genre, String description
-            , String price, Author author)
-    {
-        Book B = new Book();
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    public Book addBook(Book book, MultipartFile imageFile) {
+        String fileName = StringUtils.cleanPath(imageFile.getOriginalFilename());
         if(fileName.contains(".."))
         {
             System.out.println("not a a valid file");
         }
         try {
-            B.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+            book.setImage(Base64.getEncoder().encodeToString(imageFile.getBytes()));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-
-        B.setName(name);
-       // B.setGenre(genre);
-        B.setAuthor(author);
-        B.setDescription(description);
-        B.setPrice(price);
-        bookRepository.save(B);
+        return bookRepository.save(book);
     }
+
 
     @Override
     public List<Book> getAllBooks() {

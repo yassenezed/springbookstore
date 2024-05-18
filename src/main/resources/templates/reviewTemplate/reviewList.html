@@ -15,18 +15,24 @@
             <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Name</th>
+                <th scope="col">rating</th>
+                <th scope="col">comment</th>
+                <th scope="col">timestamp</th>
+                <th scope="col">Book</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="c:${categories}">
-                <td th:text="${c.id}"></td>
-                <td th:text="${c.categoryName}"></td>
+            <tr th:each="review:${reviews}">
+                <td th:text="${review.id}"></td>
+                <td th:text="${review.rating}"></td>
+                <td th:text="${review.comment}"></td>
+                <td th:text="${review.timestamp}"></td>
+                <td th:text="${review.bookReview.name}"></td>
                 <td>
-                    <a style="color:blue" th:href="@{/editCategory/{id}(id=${c.id})}"><i
+                    <a style="color:blue" th:href="@{/editReview/{id}(id=${review.id})}"><i
                             class="fa-solid fa-pen-to-square ms-4"></i></a>
-                    <a style="color:red" th:href="@{/deleteCategory/{id}(id=${c.id})}"><i
+                    <a style="color:red" th:href="@{/deleteReview/{id}(id=${review.id})}"><i
                             class="fa-solid fa-trash ms-4"></i></a>
                 </td>
             </tr>

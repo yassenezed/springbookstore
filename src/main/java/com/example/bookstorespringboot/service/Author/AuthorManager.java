@@ -12,4 +12,6 @@ public interface AuthorManager {
     public List<Author> getAllAuthors();
     public Author getAuthorById(int id);
     public void deleteById(int id);
-}
+    public Author updateAuthor(Author author);
+
+    }

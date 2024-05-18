@@ -36,4 +36,9 @@ public class AuthorService implements AuthorManager{
         authorRepository.deleteById(id);
 
     }
+
+    public Author updateAuthor(Author author) {
+            return authorRepository.save(author);
+
+    }
 }

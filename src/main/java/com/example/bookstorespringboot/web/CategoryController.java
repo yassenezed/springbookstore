@@ -52,6 +52,16 @@ public class CategoryController {
         model.addAttribute("category",myCategory);
         return "categoryTemplate/categoryEdit";
     }
+
+    @PostMapping("/editCategory")
+    public String updateCategory(@RequestParam("id") Integer id,
+                               @RequestParam("categoryName") String categoryName) {
+        Category myCategory = categoryManager.getCategoryById(id);
+        myCategory.setCategoryName(categoryName);
+        categoryManager.updateCategory(myCategory);
+        return "redirect:/available_categories";
+    }
+
     @RequestMapping("/deleteCategory/{id}")
     public String deleteById(@PathVariable("id") int id)
     {

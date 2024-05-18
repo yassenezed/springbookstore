@@ -34,7 +34,7 @@ public class BookStoreSpringBootApplication implements CommandLineRunner {
         Category category = new Category();
         category.setCategoryName("Drama");
         categoryRepository.save(category);
-        Book book = new Book(1, "Millionaire", List.of(category) , "cc", "cc", "cc", author12,user,null);
+        Book book = new Book(1, "Millionaire", List.of(category) , "cc","", 120,"cc", author12,user,null);
         bookRepository.save(book);
         Review review = new Review(1,5,"cc",new Date(),user,book);
         reviewRepository.save(review);

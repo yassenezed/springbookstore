@@ -12,30 +12,39 @@
 <div layout:fragment="content">
 <div class="p-5" style="border:1px solid black;">
     <h4 class="text-center">New Book Register</h4>
-    <form class="col-md-4 offset-md-4" th:action="save" method="post" enctype="multipart/form-data">
+    <form class="col-md-4 offset-md-4" th:action="@{/book_register}" th:object=${book} method="post" enctype="multipart/form-data">
         <div class="mb-3">
-            <label for="name" class="form-label text-center">Name:
-            </label> <input type="text" class="form-control" name="name">
+            <label for="name" class="form-label text-center">Full Name:
+            </label> <input type="text" id="name" class="form-control" name="name">
         </div>
         <div class="mb-3">
-            <label for="author" class="form-label">Author:
-            </label> <input type="text" class="form-control" name="author">
+              <label for="file" class="form-label text-center">Image File:
+               </label> <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png" required>
+
         </div>
         <div class="mb-3">
-            <label for="price" class="form-label">Price:
-            </label> <input type="text" class="form-control" name="price">
+            <label for="description" class="form-label text-center">Description:
+            </label> <input type="text" id="description" class="form-control" name="description">
         </div>
         <div class="mb-3">
-            <label for="description" class="form-label">Description:
-            </label> <input type="text" class="form-control" name="description">
+            <label for="price" class="form-label text-center">Full price:
+            </label> <input type="number" id="price" class="form-control" name="price">
         </div>
         <div class="mb-3">
-            <label for="genre" class="form-label">Genre:
-            </label> <input type="text" class="form-control" name="genre">
+            <label for="amazonLink" class="form-label text-center">Full amazonLink:
+            </label> <input type="text" id="amazonLink" class="form-control" name="amazonLink">
         </div>
         <div class="mb-3">
-            <input type="file" name="image" class="form-control">
-            <label class="custom-file-label" for="image">Product Image</label>
+            <label for="category" class="form-label">Category:</label>
+            <select class="form-select" id="category" name="category" multiple>
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label">Author:</label>
+            <select class="form-select" id="author" name="author">
+                <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.name}"></option>
+            </select>
         </div>
         <center><button type="submit" class="btn btn-primary">Submit</button></center>
     </form>

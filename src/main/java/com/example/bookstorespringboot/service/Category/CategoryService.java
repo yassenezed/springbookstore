@@ -1,5 +1,6 @@
 package com.example.bookstorespringboot.service.Category;
 
+import com.example.bookstorespringboot.dao.entities.Author;
 import com.example.bookstorespringboot.dao.entities.Category;
 import com.example.bookstorespringboot.dao.repositories.AuthorRepository;
 import com.example.bookstorespringboot.dao.repositories.CategoryRepository;
@@ -27,6 +28,10 @@ public class CategoryService implements CategoryManager{
     public Category getCategoryById(int id) {
         return categoryRepository.findById(id).get();
 
+    }
+
+    public Category updateCategory(Category category) {
+        return categoryRepository.save(category);
     }
 
     @Override

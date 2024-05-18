@@ -8,13 +8,11 @@ import java.util.List;
 
 public interface BookManager {
 
-    public Book AddBook(Book book);
+    public Book addBook(Book book,MultipartFile imageFile);
     public List<Book> getAllBooks();
     public Book getBookById(int id);
-
     public void deleteById(int id);
-    public void  saveProductToDB(MultipartFile file,String name, String genre, String description
-            , String price, Author author);
+
 
 
 }
