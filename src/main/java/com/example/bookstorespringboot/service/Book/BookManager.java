@@ -13,6 +13,8 @@ public interface BookManager {
     public Book getBookById(int id);
     public void deleteById(int id);
 
+    public double calculateAverageRating(Book book);
+    public void calculateAndSetAverageRatings(List<Book> books);
+    public Book updateBook(Book book);
 
-
-}
+    }

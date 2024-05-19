@@ -5,7 +5,7 @@
         layout:decorate="template" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Book Store</title>
+    <title>Book List</title>
 
 </head>
 <body>
@@ -18,11 +18,11 @@
                 <th scope="col">Image</th>
                 <th scope="col">Name</th>
                 <th scope="col">Author</th>
-                <!--  <th scope="col">Category</th>-->
+                <th scope="col">Category</th>
                  <th scope="col">Price</th>
                  <th scope="col">Description</th>
                  <th scope="col">Link</th>
-                <!-- <th scope="col">Reviews</th>-->
+                <th scope="col">Reviews</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
@@ -34,11 +34,30 @@
                 </td>
                 <td th:text="${b.name}"></td>
                 <td th:text="${b.author.name}"></td>
-               <!-- <td th:text="${b.categories}"></td>-->
+                <td>
+                    <ul>
+                        <li th:each="category : ${b.categories}" th:text="${category.categoryName}"></li>
+                    </ul>
+                </td>
                 <td th:text="${b.price}"></td>
                 <td th:text="${b.description}"></td>
                 <td th:text="${b.amazonLink}"></td>
-               <!-- <td th:text="${b.reviews}"></td>-->
+                <td>
+                    <div th:if="${#lists.isEmpty(b.reviews)}">
+                        No Reviews
+                    </div>
+                    <div th:if="${!#lists.isEmpty(b.reviews)}">
+                        <ul>
+                            <li th:each="review : ${b.reviews}">
+                                Rating: <span th:text="${review.rating}"></span>, Comment: <span th:text="${review.comment}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <span th:if="${b.averageRating > 0}" th:text="${b.averageRating}"></span>
+                    <span th:if="${b.averageRating == 0}">No Reviews</span>
+                </td>
                 <td>
                     <a style="color:blue" th:href="@{/editBook/{id}(id=${b.id})}"><i
                             class="fa-solid fa-pen-to-square ms-4"></i></a>

@@ -6,16 +6,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Book Store</title>
+    <title>Category Edit</title>
 </head>
 <body>
 <div layout:fragment="content">
 <div class="container my-5 p-5" style="border:1px solid black;">
-    <h4 class="text-center">Edit Category Here</h4>
+    <h4 class="text-center">Edit Category</h4>
     <form class="col-md-4 offset-md-4" th:action="@{/editCategory}" method="post" th:object="${category}">
         <input type="hidden" name="id" th:value="${category.id}">
         <div class="mb-3">
-            <label for="categoryName" class="form-label text-center">Full Name:
+            <label for="categoryName" class="form-label text-center">Category Name:
             </label> <input type="text" id="categoryName" class="form-control" name="categoryName" th:value="${category.categoryName}">
         </div>
         <center><button type="submit" class="btn btn-primary">Submit</button></center>

@@ -6,26 +6,74 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Book Store</title>
+    <title>Book Edit</title>
 </head>
 <body>
-
+<div layout:fragment="content">
 <div class="container my-5 p-5" style="border:1px solid black;">
     <h4 class="text-center">Edit Book Here</h4>
-    <form class="col-md-4 offset-md-4" th:action="@{/save}" method="post" th:object="${book}">
-        <input type="hidden" name="id" th:value="${book.id}"/>
+    <form class="col-md-4 offset-md-4" th:action="@{/editBook}" method="post" th:object="${book}" enctype="multipart/form-data">
+        <input type="hidden" name="id" th:value="${book.id}">;
         <div class="mb-3">
-            <label for="name" class="form-label text-center">Name:
-            </label> <input type="text" class="form-control" name="name" th:value="${book.name}">
+            <label for="name" class="form-label text-center">Full Name:
+            </label> <input type="text" id="name" class="form-control" name="name" th:value="${book.name}">
+        </div>
+
+        <div class="mb-3">
+            <label for="currentImage" class="form-label text-center">Current Image:</label>
+            <div>
+                <img id="currentImage" alt="Current Image" th:src="'data:image/jpeg;base64,' + ${book.image}" style="max-width: 200px; max-height: 200px;">
+            </div>
         </div>
         <div class="mb-3">
-            <label for="author" class="form-label">Author:
-            </label> <input type="text" class="form-control" name="author" th:value="${book.author}">
+            <label for="file" class="form-label text-center">Upload New Image:</label>
+            <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png">
+        </div>
+
+        <!--
+        For the file input on the edit page,
+        We cannot pre-fill the file input with the previous
+        file due to security reasons. However,
+        However we can display the current image and provide an
+        option to upload a new one.
+
+        Here's how We'll do it:
+
+        Display the current image.
+        Provide a file input for uploading a new image.
+
+        -->
+
+        <div class="mb-3">
+            <label for="amazonLink" class="form-label text-center">Amazon Link:
+            </label> <input type="text" id="amazonLink" class="form-control" name="amazonLink" th:value="${book.amazonLink}">
         </div>
         <div class="mb-3">
-            <label for="price" class="form-label">Price:
-            </label> <input type="text" class="form-control" name="price" th:value="${book.price}">
+            <label for="price" class="form-label text-center">Price:
+            </label> <input type="number" id="price" class="form-control" name="price" th:value="${book.price}">
         </div>
+        <div class="mb-3">
+            <label for="description" class="form-label text-center">Description:
+            </label> <input type="text" id="description" class="form-control" name="description" th:value="${book.description}">
+        </div>
+
+        <div class="mb-3">
+            <label for="category" class="form-label">Category:</label>
+            <select class="form-select" id="category" name="category.id" multiple>
+                <option th:each="category : ${categories}"
+                        th:value="${category.id}"
+                        th:text="${category.categoryName}"
+                        th:selected="${#lists.contains(book.categories, category)}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="author" class="form-label">Author:</label>
+            <select class="form-select" id="author" name="author.id">
+                <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.name}" th:selected="${author.id == book.author.id}"></option>
+            </select>
+        </div>
+
         <center><button type="submit" class="btn btn-primary">Submit</button></center>
     </form>
 </div>

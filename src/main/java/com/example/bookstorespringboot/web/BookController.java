@@ -1,9 +1,6 @@
 package com.example.bookstorespringboot.web;
 
-import com.example.bookstorespringboot.dao.entities.Author;
-import com.example.bookstorespringboot.dao.entities.Book;
-import com.example.bookstorespringboot.dao.entities.Category;
-import com.example.bookstorespringboot.dao.entities.User;
+import com.example.bookstorespringboot.dao.entities.*;
 import com.example.bookstorespringboot.service.Author.AuthorManager;
 import com.example.bookstorespringboot.service.Book.BookManager;
 import com.example.bookstorespringboot.service.Category.CategoryManager;
@@ -40,10 +37,11 @@ public class BookController {
     }
 
     @GetMapping("/available_books")
-    public String getAllBooks(Model model)
-    {
-        List<Book> listOfBook = bookManager.getAllBooks();
-        model.addAttribute("books" , listOfBook);
+    public String getAllBooks(Model model) {
+        List<Book> listOfBooks = bookManager.getAllBooks();
+        bookManager.calculateAndSetAverageRatings(listOfBooks);
+        // Calculate average ratings for all books
+        model.addAttribute("books", listOfBooks);
         return "bookTemplate/bookList";
     }
     @GetMapping("/book_register")
@@ -54,8 +52,6 @@ public class BookController {
         model.addAttribute("categories", categoryManager.getAllCategories());
         return "bookTemplate/bookRegister";
     }
-
-
 
     @PostMapping("book_register")
     public String addBook(@ModelAttribute Book b,
@@ -86,26 +82,61 @@ public class BookController {
         return "redirect:/available_books";
     }
 
-
     @RequestMapping("/editBook/{id}")
     public String editBook(@PathVariable("id") int id, Model model){
         Book myBook = bookManager.getBookById(id);
-        if (myBook == null) {
-            return "redirect:/error";
-        }
+        List<Author> listOfAuthors = authorManager.getAllAuthors(); // Assuming you have a method to get all books
+        List<Category> listOfCategories = categoryManager.getAllCategories(); // Assuming you have a method to get all books
         model.addAttribute("book",myBook);
-        return "bookEdit";
+        model.addAttribute("authors", listOfAuthors);
+        model.addAttribute("categories", listOfCategories);
+        return "bookTemplate/bookEdit";
     }
+
+
     @PostMapping("/editBook")
-    public String updateProduct(@RequestParam("id") Integer id,
-                                @RequestParam("name") String description,
-                                @RequestParam("price") double price) {
+    public String updateBook(@RequestParam("id") Integer id,
+                               @RequestParam("name") String name,
+                               @RequestParam("description") String description,
+                               @RequestParam("amazonLink") String amazonLink,
+                               @RequestParam("price") float price,
+                               @RequestParam("author.id") int authorId,
+                               @RequestParam("category.id") List<Integer> categoryIds,
+                               @RequestParam("file") MultipartFile file
+                               )
+    {
         Book myBook = bookManager.getBookById(id);
+        myBook.setName(name);
         myBook.setDescription(description);
-        //myBook.setPrice();
-        //myBook.setName();
-        //ookManager.updateProduct(product);
-        return "redirect:/getProductsList";
+        myBook.setPrice(price);
+        myBook.setAmazonLink(amazonLink);
+
+        Author author = authorManager.getAuthorById(authorId);
+        myBook.setAuthor(author);
+
+
+        // Retrieve category objects based on categoryIds
+        List<Category> categories = new ArrayList<>();
+        for (int categoryId : categoryIds) {
+            Category category = categoryManager.getCategoryById(categoryId);
+            categories.add(category);
+        }
+
+        myBook.setCategories(categories);
+
+
+        if (!file.isEmpty()) {
+            try {
+                byte[] imageBytes = file.getBytes();
+                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+                myBook.setImage(base64Image);
+            } catch (IOException e) {
+                // Handle the exception
+                e.printStackTrace();
+            }
+        }
+        bookManager.updateBook(myBook);
+        return "redirect:/available_books";
     }
 
     @RequestMapping("/deleteBook/{id}")

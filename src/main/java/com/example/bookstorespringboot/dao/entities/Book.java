@@ -27,6 +27,8 @@ public class Book {
     private String image;
     private String description;
     private float price;
+    private double averageRating;
+
     private String amazonLink;
     @ManyToOne
     private Author author;

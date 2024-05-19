@@ -6,12 +6,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Book Store</title>
+    <title>Edit Author</title>
 </head>
 <body>
 <div layout:fragment="content">
 <div class="container my-5 p-5" style="border:1px solid black;">
-    <h4 class="text-center">Edit Book Here</h4>
+    <h4 class="text-center">Edit Author Here</h4>
     <form class="col-md-4 offset-md-4" th:action="@{/editAuthor}" method="post" th:object="${author}">
         <input type="hidden" name="id" th:value="${author.id}">;
         <div class="mb-3">
@@ -29,7 +29,7 @@
 
         <div class="mb-3">
             <label for="birthDate" class="form-label">Birth Date:
-            </label> <input type="text" id="birthDate" class="form-control" name="birthDate" th:value="${author.birthDate}">
+            </label> <input type="date" id="birthDate" class="form-control" name="birthDate" th:value="${author.birthDate}">
         </div>
         <center><button type="submit" class="btn btn-primary">Submit</button></center>
     </form>

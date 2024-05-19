@@ -3,6 +3,7 @@ package com.example.bookstorespringboot.service.Book;
 
 import com.example.bookstorespringboot.dao.entities.Author;
 import com.example.bookstorespringboot.dao.entities.Book;
+import com.example.bookstorespringboot.dao.entities.Review;
 import com.example.bookstorespringboot.dao.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,31 @@ public class BookService implements BookManager{
 
         bookRepository.deleteById(id);
 
+    }
+
+    @Override
+    // Calculate average rating for a book
+    public double calculateAverageRating(Book book) {
+        double totalRating = 0.0;
+        int totalReviews = 0;
+        if (book.getReviews() != null) {
+            for (Review review : book.getReviews()) {
+                totalRating += review.getRating();
+                totalReviews++;
+            }
+        }
+        return totalReviews > 0 ? totalRating / totalReviews : 0.0;
+    }
+    @Override
+    public void calculateAndSetAverageRatings(List<Book> books) {
+        for (Book book : books) {
+            double averageRating = calculateAverageRating(book);
+            book.setAverageRating(averageRating);
+        }
+    }
+
+    public Book updateBook(Book book){
+        return bookRepository.save(book);
     }
 
 

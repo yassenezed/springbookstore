@@ -6,12 +6,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Book Store</title>
+    <title>Add Book</title>
 </head>
 <body>
 <div layout:fragment="content">
 <div class="p-5" style="border:1px solid black;">
-    <h4 class="text-center">New Book Register</h4>
+    <h4 class="text-center">New Book </h4>
     <form class="col-md-4 offset-md-4" th:action="@{/book_register}" th:object=${book} method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="name" class="form-label text-center">Full Name:
@@ -20,18 +20,17 @@
         <div class="mb-3">
               <label for="file" class="form-label text-center">Image File:
                </label> <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png" required>
-
         </div>
         <div class="mb-3">
             <label for="description" class="form-label text-center">Description:
             </label> <input type="text" id="description" class="form-control" name="description">
         </div>
         <div class="mb-3">
-            <label for="price" class="form-label text-center">Full price:
+            <label for="price" class="form-label text-center">Price:
             </label> <input type="number" id="price" class="form-control" name="price">
         </div>
         <div class="mb-3">
-            <label for="amazonLink" class="form-label text-center">Full amazonLink:
+            <label for="amazonLink" class="form-label text-center">Amazon Link:
             </label> <input type="text" id="amazonLink" class="form-control" name="amazonLink">
         </div>
         <div class="mb-3">
