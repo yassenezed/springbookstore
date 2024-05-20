@@ -22,6 +22,8 @@ public class Book {
     //so I should add a category to a book and that's it  Response ="yes"?
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Category> categories = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<User> users = new ArrayList<>();
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
@@ -36,4 +38,5 @@ public class Book {
     private User userBook;
     @OneToMany(mappedBy = "bookReview")
     private Collection<Review> reviews;
+
 }

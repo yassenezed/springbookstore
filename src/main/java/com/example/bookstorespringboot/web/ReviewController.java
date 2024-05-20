@@ -29,10 +29,12 @@ public class ReviewController {
 
 
     @GetMapping("/review_register")
-    public String reviewRegister(Model model)
+    public String reviewRegister(Model model, @RequestParam(name = "id", required = false) Integer bookId)
     {
         model.addAttribute("review", new Review());
         model.addAttribute("books", bookManager.getAllBooks());
+        model.addAttribute("selectedBookId", bookId); // Pass the book ID as a model attribute
+
         return "reviewTemplate/reviewRegister";
     }
 

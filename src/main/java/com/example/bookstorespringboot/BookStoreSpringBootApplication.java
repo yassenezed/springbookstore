@@ -27,15 +27,16 @@ public class BookStoreSpringBootApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        User user = new User(1,"","","","","","","","","",new Date(),"",null,null,null,null);
+        User user = new User(1,"","","","","","","","","",new Date(),"",null,null,null,null,null);
         userRepository.save(user);
         Author author12 = new Author(1, "Alex", "Born In Canada", "", "Canadian", null,user);
         authorRepository.save(author12);
         Category category = new Category();
         category.setCategoryName("Drama");
         categoryRepository.save(category);
-        Book book = new Book(1, "Millionaire", List.of(category) , "cc","",5 ,120,"cc", author12,user,null);
+        Book book = new Book(1, "Millionaire", List.of(category) ,List.of(user), "cc","",5 ,120,"cc", author12,user,null);
         bookRepository.save(book);
+        book.setUserBook(user);
         Review review = new Review(1,5,"cc",new Date(),user,book);
         reviewRepository.save(review);
     }

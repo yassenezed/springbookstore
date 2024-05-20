@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 @Entity
@@ -55,6 +56,10 @@ public class User {
 
     @OneToMany(mappedBy = "userCategory", fetch = FetchType.LAZY)
     private Collection<Category> categories;
+
+
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    private Collection<Book> favoriteBooks = new ArrayList<>();
 
 
 }

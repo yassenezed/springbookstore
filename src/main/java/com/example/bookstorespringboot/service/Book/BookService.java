@@ -1,17 +1,19 @@
 package com.example.bookstorespringboot.service.Book;
 
 
-import com.example.bookstorespringboot.dao.entities.Author;
-import com.example.bookstorespringboot.dao.entities.Book;
-import com.example.bookstorespringboot.dao.entities.Review;
+import com.example.bookstorespringboot.dao.entities.*;
 import com.example.bookstorespringboot.dao.repositories.BookRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -79,6 +81,56 @@ public class BookService implements BookManager{
     public Book updateBook(Book book){
         return bookRepository.save(book);
     }
+
+
+    public void addBookToUserFavorites(Integer bookId, User user) {
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new EntityNotFoundException("Book not found"));
+        // Assuming we fetch the existing list of users, add the new user, and then set it back
+        Collection<User> users = book.getUsers();
+        users.add(user);
+        book.setUsers(users);
+        // Save the updated book
+        bookRepository.save(book);
+    }
+
+    public Collection<Book> getUserFavoriteBooks(User user) {
+        return user.getFavoriteBooks();
+    }
+
+    public void removeBookFromUserFavorites(Integer bookId, User user) {
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new EntityNotFoundException("Book not found"));
+        Collection<User> users = book.getUsers();
+        users.remove(user);
+        book.setUsers(users);
+        bookRepository.save(book);
+    }
+
+    //Filter
+    public List<Book> filterBooksByName(String name) {
+        return bookRepository.findByNameContaining(name);
+    }
+
+    public List<Book> filterBooksByDescription(String description) {
+        return bookRepository.findByDescriptionContaining(description);
+    }
+
+    public List<Book> filterBooksByPriceRange(float minPrice, float maxPrice) {
+        return bookRepository.findByPriceBetween(minPrice, maxPrice);
+    }
+
+    public List<Book> filterBooksByAuthor(Author author) {
+        return bookRepository.findByAuthor(author);
+    }
+
+    public List<Book> filterBooksByCategory(Category category) {
+        return bookRepository.findByCategories(category);
+    }
+
+    public List<Book> filterBooksByRating(float rating) {
+        return bookRepository.findByAverageRatingGreaterThanEqual(rating);
+    }
+
+    //filter
 
 
 }

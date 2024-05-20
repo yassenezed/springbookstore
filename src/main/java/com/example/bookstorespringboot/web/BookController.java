@@ -36,14 +36,65 @@ public class BookController {
         return "home";
     }
 
-    @GetMapping("/available_books")
+    @GetMapping("/available_books_admin")
     public String getAllBooks(Model model) {
         List<Book> listOfBooks = bookManager.getAllBooks();
         bookManager.calculateAndSetAverageRatings(listOfBooks);
         // Calculate average ratings for all books
         model.addAttribute("books", listOfBooks);
+        return "bookTemplate/bookListAdmin";
+    }
+    //filter
+    @GetMapping("/available_books")
+    public String getAllBooks(@RequestParam(value = "name", required = false) String name,
+                              @RequestParam(value = "description", required = false) String description,
+                              @RequestParam(value = "minPrice", required = false) Float minPrice,
+                              @RequestParam(value = "maxPrice", required = false) Float maxPrice,
+                              @RequestParam(value = "authorId", required = false) Integer authorId,
+                              @RequestParam(value = "categoryId", required = false) Integer categoryId,
+                              @RequestParam(value = "rating", required = false) Float rating,
+                              Model model) {
+        List<Book> filteredBooks = new ArrayList<>();
+        // Filtering logic
+        if (name != null && !name.isEmpty()) {
+            filteredBooks = bookManager.filterBooksByName(name);
+            bookManager.calculateAndSetAverageRatings(filteredBooks);
+
+        } else if (description != null && !description.isEmpty()) {
+            filteredBooks = bookManager.filterBooksByDescription(description);
+            bookManager.calculateAndSetAverageRatings(filteredBooks);
+
+        } else if (minPrice != null && maxPrice != null) {
+            filteredBooks = bookManager.filterBooksByPriceRange(minPrice, maxPrice);
+            bookManager.calculateAndSetAverageRatings(filteredBooks);
+
+        } else if (authorId != null) {
+            Author author = authorManager.getAuthorById(authorId);
+            filteredBooks = bookManager.filterBooksByAuthor(author);
+            bookManager.calculateAndSetAverageRatings(filteredBooks);
+
+        } else if (categoryId != null) {
+            Category category = categoryManager.getCategoryById(categoryId);
+            filteredBooks = bookManager.filterBooksByCategory(category);
+            bookManager.calculateAndSetAverageRatings(filteredBooks);
+
+        } else if (rating != null) {
+            filteredBooks = bookManager.filterBooksByRating(rating);
+            bookManager.calculateAndSetAverageRatings(filteredBooks);
+
+        } else {
+            filteredBooks = bookManager.getAllBooks(); // Fallback to all books if no filter is applied
+            bookManager.calculateAndSetAverageRatings(filteredBooks);
+
+        }
+
+        model.addAttribute("books", filteredBooks);
+        model.addAttribute("authors", authorManager.getAllAuthors());
+        model.addAttribute("categories", categoryManager.getAllCategories());
         return "bookTemplate/bookList";
     }
+    //filter
+
     @GetMapping("/book_register")
     public String homeRegister(Model model)
     {
@@ -144,6 +195,20 @@ public class BookController {
     {
         bookManager.deleteById(id);
         return "redirect:/available_books";
+    }
+
+
+
+    //book detail
+    @GetMapping("/bookDetail/{id}")
+    public String showBookDetail(@PathVariable("id") Integer id, Model model) {
+        // Retrieve the book details from the service layer based on the provided id
+        Book book = bookManager.getBookById(id);
+        // Add the book object to the model so it can be accessed in the view
+        model.addAttribute("book", book);
+
+        // Return the name of the Thymeleaf template for rendering the book detail page
+        return "bookTemplate/bookDetail";
     }
 
 }
