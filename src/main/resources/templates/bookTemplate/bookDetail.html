@@ -17,6 +17,16 @@
                 margin-right: 20px;
             }
         }
+        .left-align {
+            text-align: left;
+        }
+        .rating-info {
+            display: flex;
+            align-items: center;
+        }
+        .star-icon {
+            color: #FFD43B; /* Filled star color */
+        }
     </style>
 </head>
 <body>
@@ -42,13 +52,26 @@
                         <a th:href="@{'/review_register?id=' + ${book.id}}" class="btn btn-warning btn-block mb-2">Rate This Book</a>
                     </div>
                     <!-- Book Info -->
-                    <div class="book-info">
-                        <h1 th:text="${book.name}"></h1>
-                        <h4 th:text="${book.author.name}" class="mb-3"></h4>
-                        <h4 th:text="${book.averageRating}"></h4>
-                        <p>Description: <span th:text="${book.description}"></span></p>
-                        <p>Categories:</p>
-                        <p th:each="category : ${book.categories}" th:text="${category.categoryName}"></p>
+                    <div class="book-info left-align">
+                        <h1 th:text="'Book Name: ' + ${book.name}"></h1>
+                        <h4 th:text="'Author: ' + ${book.author.name}" class="mb-3"></h4>
+                        <div class="rating-info">
+                            <h4>Rating:</h4>
+                            <!-- Display filled stars based on the average rating, with a maximum of 5 stars -->
+                            <span th:each="i : ${#numbers.sequence(1, book.averageRating)}" th:if="${i <= 5}">
+                                <i class="fa-solid fa-star star-icon"></i>
+                            </span>
+                            <!-- Display empty stars for the remaining, with a maximum of 5 stars -->
+                            <span th:each="i : ${#numbers.sequence(book.averageRating + 1, 5)}" th:if="${i <= 5}">
+                                <i class="fa-regular fa-star"></i>
+                            </span>
+                            <span th:text="' (' + ${ratingCount} + ' ratings)'"></span>
+                        </div>
+                        <h4 th:text="'Description: ' + ${book.description}"></h4>
+                        <h4>Categories:</h4>
+                        <ul>
+                            <li th:each="category : ${book.categories}" th:text="${category.categoryName}"></li>
+                        </ul>
                     </div>
 
                 </div>

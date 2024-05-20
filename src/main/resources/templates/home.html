@@ -82,9 +82,11 @@
     <div class="main-content">
         <img th:src="@{/images/bookStore.png}" alt="Book Store Image"/>
         <div class="banner">
-            <h2>Now in Morocco</h2>
-            <p>Access a wide range of books, exclusively now in Morocco 🇲🇦</p>
-            <a href="https://booksondemand.ma/collections/best-sellers-english-books-maroc" class="button">Shop Now</a>
+            <h2>Enjoy Your Reading</h2>
+            <p>Access a wide range and exclusive books</p>
+            <a href="registration2" class="button" sec:authorize="!isAuthenticated()">Sign Up Now</a>
+            <a href="login2" class="button" sec:authorize="!isAuthenticated()" >Or Login</a>
+
         </div>
     </div>
 </div>

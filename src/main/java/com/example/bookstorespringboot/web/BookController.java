@@ -58,34 +58,20 @@ public class BookController {
         // Filtering logic
         if (name != null && !name.isEmpty()) {
             filteredBooks = bookManager.filterBooksByName(name);
-            bookManager.calculateAndSetAverageRatings(filteredBooks);
-
         } else if (description != null && !description.isEmpty()) {
             filteredBooks = bookManager.filterBooksByDescription(description);
-            bookManager.calculateAndSetAverageRatings(filteredBooks);
-
         } else if (minPrice != null && maxPrice != null) {
             filteredBooks = bookManager.filterBooksByPriceRange(minPrice, maxPrice);
-            bookManager.calculateAndSetAverageRatings(filteredBooks);
-
         } else if (authorId != null) {
             Author author = authorManager.getAuthorById(authorId);
             filteredBooks = bookManager.filterBooksByAuthor(author);
-            bookManager.calculateAndSetAverageRatings(filteredBooks);
-
         } else if (categoryId != null) {
             Category category = categoryManager.getCategoryById(categoryId);
             filteredBooks = bookManager.filterBooksByCategory(category);
-            bookManager.calculateAndSetAverageRatings(filteredBooks);
-
         } else if (rating != null) {
             filteredBooks = bookManager.filterBooksByRating(rating);
-            bookManager.calculateAndSetAverageRatings(filteredBooks);
-
         } else {
             filteredBooks = bookManager.getAllBooks(); // Fallback to all books if no filter is applied
-            bookManager.calculateAndSetAverageRatings(filteredBooks);
-
         }
 
         model.addAttribute("books", filteredBooks);
@@ -195,17 +181,21 @@ public class BookController {
         return "redirect:/available_books";
     }
 
-    
+
     //book detail
     @GetMapping("/bookDetail/{id}")
     public String showBookDetail(@PathVariable("id") Integer id, Model model) {
         // Retrieve the book details from the service layer based on the provided id
         Book book = bookManager.getBookById(id);
+
+        int ratingCount = book.getReviews().size();
+
         List<Book> myBooks = new ArrayList<>();
         myBooks = bookManager.getAllBooks();
         bookManager.calculateAndSetAverageRatings(myBooks);
         // Add the book object to the model so it can be accessed in the view
         model.addAttribute("book", book);
+        model.addAttribute("ratingCount", ratingCount);
 
         // Return the name of the Thymeleaf template for rendering the book detail page
         return "bookTemplate/bookDetail";
