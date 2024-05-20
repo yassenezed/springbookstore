@@ -12,5 +12,11 @@ public interface UserManager {
     public User findUserByUsername(String username);
     public static List<User> users = new ArrayList<>();
 
+    public List<User> getAllUsers();
+    public User getUserById(int id);
+    public void deleteById(int id);
+    public User updateUser(User user);
+
+
 
 }

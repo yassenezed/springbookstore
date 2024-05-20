@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.com"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="template" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Review Edit</title>
+</head>
+<body>
+<div layout:fragment="content">
+<div class="container my-5 p-5" style="border:1px solid black;">
+    <h4 class="text-center">Edit Review Here</h4>
+    <form class="col-md-4 offset-md-4" th:action="@{/editUser}" method="post" th:object="${user}">
+        <input type="hidden" name="id" th:value="${user.id}">
+        <div class="mb-3">
+            <label for="username" class="form-label text-center">Username:</label>
+            <input type="text" th:value="${user.username}" id="username" class="form-control" name="username" rows="4" placeholder="Write your review here" />
+        </div>
+        <div class="mb-3">
+            <label for="firstName" class="form-label text-center">firstName:</label>
+            <input type="text" th:value="${user.firstName}" id="firstName" class="form-control" name="firstName" rows="4"/>
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label text-center">lastName:</label>
+            <input type="text" th:value="${user.lastName}" id="lastName" class="form-control" name="lastName" rows="4"/>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label text-center">email:</label>
+            <input type="text" th:value="${user.email}" id="email" class="form-control" name="email" rows="4"/>
+        </div>
+        <div class="mb-3">
+            <label for="birthDate" class="form-label text-center">birthDate:</label>
+            <input th:value="${user.lastName}" id="birthDate" name="birthDate" type="date">
+        </div>
+        <div class="mb-3">
+            <label for="phoneNumber" class="form-label text-center">phoneNumber:</label>
+            <input type="number" th:value="${user.phoneNumber}" id="phoneNumber" class="form-control" name="phoneNumber" rows="4"/>
+        </div>
+        <div class="mb-3">
+            <label for="gender" class="form-label text-center">gender:</label>
+            <select id="gender" class="form-control" name="gender">
+                <option value="male" th:selected="${user.gender == male}">Male</option>
+                <option value="female" th:selected="${user.gender == female}">Female</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label text-center">address:</label>
+            <input type="text" th:value="${user.address}" id="address" class="form-control" name="address" rows="4"/>
+        </div>
+        <center><button type="submit" class="btn btn-primary">Submit</button></center>
+    </form>
+</div>
+</div>
+</body>
+</html>

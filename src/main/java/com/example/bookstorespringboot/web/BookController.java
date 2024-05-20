@@ -126,8 +126,6 @@ public class BookController {
         // Set author and categories to the book object
         b.setAuthor(author);
         b.setCategories(categories);
-
-
         // Save the book object
         bookManager.addBook(b,imageFile);
         return "redirect:/available_books";
@@ -197,13 +195,15 @@ public class BookController {
         return "redirect:/available_books";
     }
 
-
-
+    
     //book detail
     @GetMapping("/bookDetail/{id}")
     public String showBookDetail(@PathVariable("id") Integer id, Model model) {
         // Retrieve the book details from the service layer based on the provided id
         Book book = bookManager.getBookById(id);
+        List<Book> myBooks = new ArrayList<>();
+        myBooks = bookManager.getAllBooks();
+        bookManager.calculateAndSetAverageRatings(myBooks);
         // Add the book object to the model so it can be accessed in the view
         model.addAttribute("book", book);
 

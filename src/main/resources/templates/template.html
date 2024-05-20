@@ -13,9 +13,56 @@
     <script src="https://kit.fontawesome.com/0faddc1af8.js" crossorigin="anonymous"></script>
 
     <title>Book Store</title>
+    <style>
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand, .nav-link {
+            color: #ffffff !important;
+        }
+        .dropdown-menu {
+            background-color: #ffffff;
+        }
+        .dropdown-item {
+            color: #343a40 !important;
+        }
+        /* Ensure dropdown-submenu items are styled correctly */
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu > .dropdown-menu {
+            top: 0;
+            right: 100%;
+            left: auto;
+            margin-top: -6px;
+            margin-right: 1px;
+            display: none;
+        }
+
+        .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-submenu > a::after {
+            content: " ";
+            float: right;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-right-color: #ccc;
+            margin-top: 5px;
+            margin-left: -10px;
+        }
+
+        .dropdown-submenu:hover > a::after {
+            border-right-color: #fff;
+        }
+
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand text-white" href="/">Book Store</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,9 +114,83 @@
             </div>
         </div>
     </div>
+</nav> -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Book Store</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="available_books">Available Books</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated() and hasRole('Read')">
+                    <a class="nav-link" href="userFavorites">My Favorite Books</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                        Publishing Tools
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="#">Author</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="author_register" sec:authorize="isAuthenticated() and hasRole('Read')" >Add An Author</a></li>
+                                <li><a class="dropdown-item" href="available_authors">Available Authors</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="#">Categories</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="category_register" sec:authorize="isAuthenticated() and hasRole('Read')" >Add A Category</a></li>
+                                <li><a class="dropdown-item" href="available_categories">Available Categories</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="#">Reviews</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="review_register" sec:authorize="isAuthenticated() and hasRole('Read')" >Add A Review</a></li>
+                                <li><a class="dropdown-item" href="available_reviews">Available Reviews</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="dropdown-item" href="book_register" sec:authorize="isAuthenticated() and hasRole('Read')">New Book Register</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="isAuthenticated()">
+                        Hello Mr, <span sec:authentication="principal.username"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post">
+                            <input type="submit" value="Logout" class="btn btn-link text-white p-0">
+                        </form>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="!isAuthenticated()" href="/login2">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="!isAuthenticated()" href="/registration2">Registration</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
+
 <div class="container text-center my-5">
     <section layout:fragment="content"></section>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

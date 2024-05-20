@@ -8,16 +8,86 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Book Store</title>
+    <title>Book Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            padding: 50px 0;
+            background: #4a90e2;
+            color: #fff;
+        }
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        .header h6 {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .main-content {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .main-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .banner {
+            margin: 50px 0;
+            padding: 50px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .banner h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .banner p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .banner .button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #4a90e2;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .banner .button:hover {
+            background-color: #357ABD;
+        }
+    </style>
 </head>
 <body>
 
 <div layout:fragment="content">
 
-    <h1>WELCOME TO NEW BOOK STORE</h1>
-    <h6>Welcome to the book store you'll find every book you think of...
-    </h6>
-    <img th:src="@{/images/bookStore.png}"/>
+    <div class="header">
+        <h1>Welcome to New Book Store</h1>
+        <h6>Find every book you can think of...</h6>
+    </div>
+
+    <div class="main-content">
+        <img th:src="@{/images/bookStore.png}" alt="Book Store Image"/>
+        <div class="banner">
+            <h2>Now in Morocco</h2>
+            <p>Access a wide range of books, exclusively now in Morocco 🇲🇦</p>
+            <a href="https://booksondemand.ma/collections/best-sellers-english-books-maroc" class="button">Shop Now</a>
+        </div>
+    </div>
 </div>
+
 </body>
 </html>

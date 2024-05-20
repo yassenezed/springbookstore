@@ -62,4 +62,10 @@ public class User {
     private Collection<Book> favoriteBooks = new ArrayList<>();
 
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modifiedAt;
+
+
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 @Entity
 @Data
@@ -21,5 +22,11 @@ public class Category {
     private Collection<Book> books = new ArrayList<>();
     @ManyToOne
     private User userCategory;
+
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modifiedAt;
 
 }

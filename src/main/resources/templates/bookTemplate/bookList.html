@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+
       layout:decorate="template" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -65,9 +67,9 @@
                         <p class="card-text" th:text="${b.description}"></p>
                         <p class="card-text">Price: <span th:text="${b.price}"></span></p>
                         <p class="card-text">Rating: <span th:text="${b.averageRating}"></span></p>
-                        <form th:action="@{/addFavorite}" method="post">
+                        <form th:action="@{/addFavorite}" method="post" sec:authorize="isAuthenticated() and hasRole('Read')">
                             <input type="hidden" name="bookId" th:value="${b.id}"/>
-                            <button type="submit" class="btn btn-primary">Add to Favorites</button>
+                            <button type="submit" class="btn btn-primary" >Add to Favorites</button>
                         </form>
                     </div>
                 </div>

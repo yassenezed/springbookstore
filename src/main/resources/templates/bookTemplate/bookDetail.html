@@ -7,9 +7,14 @@
     <title>Book List</title>
     <style>
         @media (min-width: 768px) {
-            .row-cols-md-4 > * {
-                flex: 0 0 auto;
-                width: 100%;
+            .book-details {
+                display: flex;
+                align-items: flex-start;
+            }
+
+            .book-image {
+                flex: 0 0 40%;
+                margin-right: 20px;
             }
         }
     </style>
@@ -19,30 +24,37 @@
     <div class="container my-5">
         <!-- Book Details -->
         <div class="row">
-            <!-- Book Image -->
-            <div class="col-md-4">
-                <a th:href="@{/bookDetail/{id}(id=${book.id})}">
-                    <img th:src="'data:image/jpeg;base64,' + ${book.image}" alt="Book Image" class="img-fluid mb-3">
-                </a>
-                <!-- Add to Favorites -->
-                <form th:action="@{/addFavorite}" method="post">
-                    <input type="hidden" name="bookId" th:value="${book.id}"/>
-                    <button type="submit" class="btn btn-primary btn-block mb-2">Add to Favorites</button>
-                </form>
-                <!-- Buy Now -->
-                <a th:href="${book.amazonLink}" class="btn btn-success btn-block mb-2">Buy Now</a>
-                <!-- Rate This Book -->
-                <a th:href="@{'/review_register?id=' + ${book.id}}" class="btn btn-warning btn-block mb-2">Rate This Book</a>
-            </div>
-            <!-- Book Info -->
-            <div class="col-md-8">
-                <h1 th:text="${book.name}"></h1>
-                <h4 th:text="${book.author.name}" class="mb-3"></h4>
-                <p>Average Rating: <span th:text="${book.averageRating}"></span></p>
-                <p th:text="${book.description}"></p>
-                <p>Categories: <span th:text="${book.categories}"></span></p>
+            <div class="col-md-12">
+                <div class="book-details">
+                    <!-- Book Image -->
+                    <div class="book-image">
+                        <a th:href="@{/bookDetail/{id}(id=${book.id})}">
+                            <img th:src="'data:image/jpeg;base64,' + ${book.image}" alt="Book Image" class="img-fluid mb-3">
+                        </a>
+                        <!-- Add to Favorites -->
+                        <form th:action="@{/addFavorite}" method="post">
+                            <input type="hidden" name="bookId" th:value="${book.id}"/>
+                            <button type="submit" class="btn btn-primary btn-block mb-2">Add to Favorites</button>
+                        </form>
+                        <!-- Buy Now -->
+                        <a th:href="${book.amazonLink}" class="btn btn-success btn-block mb-2">Buy Now</a>
+                        <!-- Rate This Book -->
+                        <a th:href="@{'/review_register?id=' + ${book.id}}" class="btn btn-warning btn-block mb-2">Rate This Book</a>
+                    </div>
+                    <!-- Book Info -->
+                    <div class="book-info">
+                        <h1 th:text="${book.name}"></h1>
+                        <h4 th:text="${book.author.name}" class="mb-3"></h4>
+                        <h4 th:text="${book.averageRating}"></h4>
+                        <p>Description: <span th:text="${book.description}"></span></p>
+                        <p>Categories:</p>
+                        <p th:each="category : ${book.categories}" th:text="${category.categoryName}"></p>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-</div></body>
+</div>
+</body>
 </html>

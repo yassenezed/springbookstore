@@ -27,4 +27,10 @@
 
         @ManyToOne
         private Book bookReview;
+
+
+        @Temporal(TemporalType.TIMESTAMP)
+        private Date createdAt;
+        @Temporal(TemporalType.TIMESTAMP)
+        private Date modifiedAt;
     }

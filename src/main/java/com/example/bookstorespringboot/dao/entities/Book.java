@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 @Entity
 @Data
@@ -38,5 +39,10 @@ public class Book {
     private User userBook;
     @OneToMany(mappedBy = "bookReview")
     private Collection<Review> reviews;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modifiedAt;
 
 }

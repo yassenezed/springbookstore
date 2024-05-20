@@ -28,4 +28,9 @@ public class Author {
     private Collection<Book> books;
     @ManyToOne
     private User userAuthor;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modifiedAt;
 }
