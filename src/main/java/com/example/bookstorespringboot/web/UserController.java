@@ -5,7 +5,9 @@ import com.example.bookstorespringboot.dao.entities.Review;
 import com.example.bookstorespringboot.dao.entities.User;
 import com.example.bookstorespringboot.service.Book.BookManager;
 import com.example.bookstorespringboot.service.User.UserManager;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -112,8 +114,6 @@ public class UserController {
         userManager.deleteById(id);
         return "redirect:/available_reviews";
     }
-
-
 
 
 }

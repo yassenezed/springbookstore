@@ -21,7 +21,7 @@ public class UserService implements UserManager{
 
     private PasswordEncoder passwordEncoder;
 
-    @PostConstruct
+    /*@PostConstruct
     @Bean
     public void postConstruct() {
         User user = new User();
@@ -29,7 +29,7 @@ public class UserService implements UserManager{
         user.setUsername("admin");
         user.setPassword(passwordEncoder.encode("admin"));
         userRepository.save(user);
-    }
+    }*/
 
     @Override
     public User addUser(User user) {

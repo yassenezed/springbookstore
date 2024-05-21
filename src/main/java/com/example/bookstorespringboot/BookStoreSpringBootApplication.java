@@ -27,7 +27,7 @@ public class BookStoreSpringBootApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        User user = new User(1,"","","","","","","","","",new Date(),"",null,null,null,null,null,new Date(),new Date());
+      /*  User user = new User(1,"","","","","","","","","",new Date(),"",null,null,null,null,null,new Date(),new Date());
         userRepository.save(user);
         Author author12 = new Author(1, "Alex", "Born In Canada", "", "Canadian", null,user,new Date(),new Date());
         authorRepository.save(author12);
@@ -38,6 +38,6 @@ public class BookStoreSpringBootApplication implements CommandLineRunner {
         bookRepository.save(book);
         book.setUserBook(user);
         Review review = new Review(1,5,"cc",new Date(),user,book,new Date(),new Date());
-        reviewRepository.save(review);
+        reviewRepository.save(review);*/
     }
 }
